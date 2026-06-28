@@ -3,6 +3,10 @@ package com.example.demo.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,11 +24,16 @@ public class Expense {
     @NotNull(message = "Date of transaction is required!")
     private LocalDate dateOfTransaction;
 
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDate createdAt;
-    
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
     private LocalDate updatedAt;
 
     @NotBlank(message = "Description cannot be empty!")
+    @Column(name = "description")
     private String description;
 
     public Expense(BigDecimal amount, LocalDate dateOfTransaction, LocalDate createdAt, LocalDate updatedAt, String description) {
