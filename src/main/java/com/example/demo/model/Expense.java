@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,15 +46,20 @@ public class Expense {
     @Column(name = "description")
     private String description;
 
-    public Expense(BigDecimal amount, LocalDate dateOfTransaction, LocalDate createdAt, LocalDate updatedAt, String description) {
+    public Expense() {}
+
+    public Expense(
+        @JsonProperty("amount") BigDecimal amount, 
+        @JsonProperty("dateOfTransaction")LocalDate dateOfTransaction,
+        LocalDate createdAt, 
+        LocalDate updatedAt, 
+        @JsonProperty("description") String description) {
         this.amount = amount;
         this.dateOfTransaction = dateOfTransaction;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.description = description;
     }
-
-    public Expense() {}
 
     public Long getId() {
         return this.id;
