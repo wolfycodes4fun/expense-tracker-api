@@ -1,7 +1,11 @@
 package com.example.demo.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ExpenseRepository extends JpaRepository {
+import com.example.demo.model.Expense;
+
+@Repository
+public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
 }
