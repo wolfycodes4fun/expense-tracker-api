@@ -1,0 +1,83 @@
+package com.example.demo.model;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.Id;
+
+@Entity
+public class Expense {
+
+    @Id
+    private Long id;
+
+    @NotNull(message = "Amount is required!")
+    private BigDecimal amount;
+
+    @NotNull(message = "Date of transaction is required!")
+    private LocalDate dateOfTransaction;
+
+    private LocalDate createdAt;
+    
+    private LocalDate updatedAt;
+
+    @NotBlank(message = "Description cannot be empty!")
+    private String description;
+
+    public Expense(BigDecimal amount, LocalDate dateOfTransaction, LocalDate createdAt, LocalDate updatedAt, String description) {
+        this.amount = amount;
+        this.dateOfTransaction = dateOfTransaction;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.description = description;
+    }
+
+    public Expense() {}
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public BigDecimal getAmount() {
+        return this.amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public LocalDate getDateOfTransaction() {
+        return this.dateOfTransaction;
+    }
+
+    public void setDateOfTransaction(LocalDate dateOfTransaction) {
+        this.dateOfTransaction = dateOfTransaction;
+    }
+
+    public LocalDate getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+}
