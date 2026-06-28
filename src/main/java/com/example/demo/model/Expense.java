@@ -8,20 +8,27 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.persistence.Id;
 
 @Entity
 public class Expense {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull(message = "Amount is required!")
+    @Positive(message = "Amount must be greater than 0")
+    @Column(name = "amount", nullable = false)
     private BigDecimal amount;
 
     @NotNull(message = "Date of transaction is required!")
+    @Column(name = "date_of_transaction", nullable = false)
     private LocalDate dateOfTransaction;
 
     @CreationTimestamp
