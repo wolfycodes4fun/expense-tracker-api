@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,9 +36,12 @@ public class ExpenseController {
         return expenseService.searchExpenses(description, date);
     }
 
-    @DeleteMapping(path = "delete/{id}")
+    @DeleteMapping("/delete")
     public String deleteExpenseRecords(
-        @PathVariable("id") Long id) {
-            return expenseService.deleteById(id);
+        @RequestParam("deletionIds") List<Long> ids) {
+            if (ids.size() == 1)
+                return expenseService.deleteById(ids.get(0));
+            else
+                return expenseService.deleteById(ids);
     }
 }
