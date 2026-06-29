@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,22 @@ public class ExpenseService {
 
     public Expense createExpense(Expense expense) {
         return expenseRepository.save(expense);
+    }
+
+    public void updateExpense(Long id, String description, BigDecimal amount, LocalDate date) {
+        Optional<Expense> optionalExpense = expenseRepository.findById(id);
+
+        if (!optionalExpense.isPresent()) return;
+        Expense existingExpense = optionalExpense.get();
+
+        if (description != null && !description.isBlank())
+            existingExpense.setDescription(description);
+        if (amount != null)
+            existingExpense.setAmount(amount);
+        if (date != null)
+            existingExpense.setDateOfTransaction(date);
+
+        expenseRepository.save(existingExpense);
     }
 
     public List<Expense> searchExpenses(String mustIncludeInDescription, LocalDate date) {
